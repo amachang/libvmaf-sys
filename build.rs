@@ -2,8 +2,8 @@ use meson_next;
 use meson_next::config::Config;
 use std::collections::HashMap;
 use std::env;
-use std::fs::canonicalize;
-use std::path::{Path, PathBuf};
+
+use std::path::PathBuf;
 
 fn main() {
     let build_dir = PathBuf::from(env::var("OUT_DIR").unwrap()).join("build");
@@ -25,6 +25,9 @@ fn main() {
 
     #[cfg(target_os = "windows")]
     let config = {
+        use std::fs::canonicalize;
+        use std::path::Path;
+
         let native_file = canonicalize(Path::new("native-gcc-g++.ini")).unwrap();
         config.native_file(native_file)
     };
