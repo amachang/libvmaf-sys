@@ -35,6 +35,11 @@ fn main() {
 
     println!("cargo:rustc-link-lib=static=vmaf");
     println!("cargo:rustc-link-search=native={lib_dir_str}");
+
+    #[cfg(target_os = "macos")]
+    println!("cargo:rustc-flags=-l dylib=c++");
+
+    #[cfg(not(target_os = "macos"))]
     println!("cargo:rustc-flags=-l dylib=stdc++");
 
     // Path to vendor header files
